@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pookie's Hug Day GIFs</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+  
+  <style>
+ @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Gloria+Hallelujah&display=swap');
+
+body {
+  background: linear-gradient(45deg, #ff6b88, #ff3b56);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  min-height: 100vh;
+  overflow-x: hidden;
+  margin: 0;
+  font-family: 'Bubblegum Sans', 'Gloria Hallelujah', cursive;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.surprise-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #fff;
+  text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+  opacity: 0;
+  z-index: 1000;
+  padding: 2rem;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px) brightness(1.1);
+  box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+  text-align: center;
+  width: min(400px, 80vw);
+  transition: all 0.4s ease-in-out;
+}
+
+.gif-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.gif-wrapper {
+  position: relative;
+  padding-bottom: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(255, 182, 193, 0.4), 0 0 25px rgba(255, 192, 203, 0.2);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+.gif-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.gif-slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.gif-slide p {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  color: #fff;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+  transition: all 0.3s ease;
+}
+
+.gif-slide p:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 15px rgba(255, 192, 203, 0.3);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, #ff6b88, #ff8fa3);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(255, 182, 193, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: white;
+  color: #ff6b88;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.5);
+}
+
+#surprise-btn {
+  background: linear-gradient(45deg, #ff6b88, #ff3b56);
+  color: #fff;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3), 0 0 30px rgba(255, 192, 203, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  width: auto;
+}
+
+#surprise-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4), 0 0 40px rgba(255, 182, 193, 0.3);
+}
+
+#surprise-btn:active {
+  transform: translateY(1px);
+}
+
+.main-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  padding: clamp(1rem, 4vw, 2rem);
+  margin: 2rem;
+  max-width: 800px;
+  box-shadow: 0 15px 35px rgba(255, 182, 193, 0.3), inset 0 0 40px rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.surprise-text {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  background-color: rgba(255, 0, 0, 0.7);
+  border-radius: 30px;
+  padding: 15px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.surprise-text.show {
+  opacity: 1;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Main Button */
+#surprise-btn {
+  background: linear-gradient(45deg, #ff6b88, #ff3b56);
+  color: #fff;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3), 0 0 30px rgba(255, 192, 203, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  width: auto;
+  text-transform: uppercase;
+}
+
+#surprise-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 182, 193, 0.4), 0 0 40px rgba(255, 182, 193, 0.3);
+  background: linear-gradient(45deg, #ff3b56, #ff6b88);
+  animation: glowing 1.5s infinite alternate;
+}
+
+#surprise-btn:active {
+  transform: translateY(1px);
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 15px #ff6b88, 0 0 30px #ff6b88, 0 0 60px #ff6b88;
+  }
+  100% {
+    box-shadow: 0 0 25px #ff3b56, 0 0 50px #ff3b56, 0 0 100px #ff3b56;
+  }
+}
+
+/* Next Button (Arrow) */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #ff6b88, #ff3b56);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  box-shadow: 0 6px 15px rgba(255, 182, 193, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+  animation: glowing-arrow 1.5s infinite alternate;
+}
+
+.carousel-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: linear-gradient(45deg, #ff3b56, #ff6b88);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 182, 193, 0.5);
+}
+
+.carousel-arrow:active {
+  transform: translateY(1px);
+}
+
+@keyframes glowing-arrow {
+  0% {
+    box-shadow: 0 0 15px #ff6b88, 0 0 30px #ff6b88, 0 0 60px #ff6b88;
+  }
+  100% {
+    box-shadow: 0 0 25px #ff3b56, 0 0 50px #ff3b56, 0 0 100px #ff3b56;
+  }
+}
+
+
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 overflow-hidden">
+  <div class="main-container rounded-lg p-6 max-w-3xl w-full relative">
+      <div class="floating-heart absolute top-10 left-20 w-8 h-8 bg-pink-300 rounded-full"></div>
+      <div class="floating-heart absolute top-20 right-20 w-6 h-6 bg-purple-300 rounded-full"></div>
+  
+      <div class="gif-carousel relative">
+        <div class="gif-container">
+          <div class="gif-wrapper">
+            <div class="gif-slide active" data-surprise="Hey Priyyu, Listen !!! 🌈✨">
+              <img src="hug1.gif" alt="Hug 1" class="transition-all duration-300">
+              <p class="gif-caption text-center font-kawaii text-2xl text-pink-600">Sending Pookie Hugs! 🐻</p>
+            </div>
+            <div class="gif-slide hidden" data-surprise="Hehehe.... 🍯💕">
+              <img src="hug2.gif" alt="Hug 2" class="transition-all duration-300">
+              <p class="gif-caption text-center font-kawaii text-2xl text-pink-600">Bear Hugs Loading... 🐨</p>
+            </div>
+            <div class="gif-slide hidden" data-surprise="Pookie's heart goes boom boom! 🌟💝">
+              <img src="hug3.gif" alt="Hug 3" class="transition-all duration-300">
+              <p class="gif-caption text-center font-kawaii text-2xl text-pink-600">Cuddle Time! 🐼</p>
+            </div>
+          </div>
+  
+          <button class="carousel-arrow absolute left-4" onclick="switchSlide(-1)">
+            &#10094;
+          </button>
+          <button class="carousel-arrow absolute right-4" onclick="switchSlide(1)">
+            &#10095;
+          </button>
+        </div>
+      </div>
+  
+      <button id="surprise-btn" class="pookie-button">
+          Tap for Pookie's Surprise!
+        </button>
+        <button id="next-page-btn" class="next-page-button" onclick="goToNextPage()">
+          Next Page
+        </button>
+        
+    </div>
+
+<script>
+  const slides = document.querySelectorAll('.gif-slide');
+  const arrows = document.querySelectorAll('.carousel-arrow');
+  const surpriseBtn = document.getElementById('surprise-btn');
+  const nextPageBtn = document.getElementById('next-page-btn');
+  let currentSlide = 0;
+
+  function createHeart() {
+    const heart = document.createElement('div');
+    const hearts = ['❤️', '💖', '💝', '💕', '💗'];
+    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.position = 'fixed';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    heart.classList.add('raining-heart');
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  function showSurpriseText() {
+    const activeSlide = document.querySelector('.gif-slide.active');
+    const surpriseMessage = activeSlide.dataset.surprise;
+
+    const surpriseText = document.createElement('div');
+    surpriseText.classList.add('surprise-text');
+
+    // Add sparkles
+    for (let i = 0; i < 6; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = `${Math.random() * 100}%`;
+      sparkle.style.top = `${Math.random() * 100}%`;
+      sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
+      surpriseText.appendChild(sparkle);
+    }
+
+    // Add message with decorative elements
+    const messageContent = document.createElement('div');
+    messageContent.innerHTML = `
+      <span style="font-size: 1.2em">✨</span>
+      ${surpriseMessage}
+      <span style="font-size: 1.2em">✨</span>
+    `;
+    surpriseText.appendChild(messageContent);
+
+    document.body.appendChild(surpriseText);
+
+    // Enhanced animation with GSAP
+    gsap.to(surpriseText, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      ease: "back.out(1.7)",
+      onComplete: () => {
+        setTimeout(() => {
+          gsap.to(surpriseText, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.4,
+            ease: "back.in(1.7)",
+            onComplete: () => surpriseText.remove()
+          });
+        }, 2000);
+      }
+    });
+  }
+
+  // Increased heart rain frequency
+  setInterval(createHeart, 150);
+
+  function switchSlide(direction) {
+    slides[currentSlide].classList.add('hidden');
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].classList.remove('hidden');
+    slides[currentSlide].classList.add('active');
+
+    // Show next page button on the third slide
+    if (currentSlide === 2) {
+      nextPageBtn.style.display = 'block';
+    } else {
+      nextPageBtn.style.display = 'none';
+    }
+  }
+
+  arrows[0].addEventListener('click', () => switchSlide(-1));
+  arrows[1].addEventListener('click', () => switchSlide(1));
+
+  setInterval(() => switchSlide(1), 5000);
+
+  surpriseBtn.addEventListener('click', () => {
+    gsap.to(surpriseBtn, {
+      scale: 0.9,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1
+    });
+
+    showSurpriseText();
+
+    // Increased heart burst amount
+    for (let i = 0; i < 50; i++) {
+      setTimeout(createHeart, i * 30);
+    }
+  });
+
+  function goToNextPage() {
+    document.body.style.transition = 'opacity 0.5s';
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+      window.location.href = 'Final.html';
+    }, 500);
+  }
+</script>
+</body>
+</html>

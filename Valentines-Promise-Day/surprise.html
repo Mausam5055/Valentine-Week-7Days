@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apke Liye💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff6bcb, #ffde59, #85e89d, #5bc0de);
+            background-size: 300% 300%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transform: scale(1);
+            transition: transform 0.5s ease;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #ff6b6b, #45caff, #ff8c00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glowText 2s ease infinite alternate;
+        }
+
+        @keyframes glowText {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff4e50, #fc913a);
+            color: white;
+            border: 2px solid white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 78, 80, 0.5);
+        }
+
+        #noBtn {
+            position: absolute;
+            background: linear-gradient(45deg, #85e89d, #5bc0de);
+            color: white;
+            border: 2px solid white;
+        }
+
+        #noBtn:hover {
+            transform: scale(1.1);
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatHeart 5s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        .btn-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">I have a surprise for u! ✨</h1>
+        <div class="btn-container">
+            <button id="yesBtn" class="btn">Show na 🥹🫶🏻</button>
+            <button id="noBtn" class="btn">Nahi Dekhna mere ko 😤☠️</button>
+        </div>
+    </div>
+
+    <script>
+        // Create floating elements
+        const hearts = ['❤️', '✨', '🌸', '💝', '🎀', '💕', '🦋', '🌟'];
+        
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createFloatingHeart, 500);
+
+        // No button movement
+        const noBtn = document.getElementById('noBtn');
+        
+        function moveButton() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton);
+
+        // Yes button action
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.body.style.transition = 'opacity 1s';
+            document.body.style.opacity = '0';
+            setTimeout(function() {
+                window.location.href = 'wish.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

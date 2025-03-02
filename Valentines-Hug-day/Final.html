@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hug Day</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&family:Satisfy&display=swap');
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #FF6B6B, #4ECDC4);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      font-family: 'Dancing Script', cursive;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hug-day-container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      transform-style: preserve-3d;
+      transform: rotateX(10deg);
+      transition: all 0.5s ease;
+      position: relative;
+    }
+
+    .hug-day-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 64px;
+      color: #FF1493;
+      text-shadow: 4px 4px 8px rgba(255, 20, 147, 0.3);
+      animation: textGlow 3s ease-in-out infinite alternate;
+      margin-bottom: 30px;
+      transition: color 0.5s ease;
+    }
+
+    @keyframes textGlow {
+      0% { text-shadow: 4px 4px 8px rgba(255, 20, 147, 0.3); }
+      100% { text-shadow: 4px 4px 20px rgba(255, 20, 147, 0.6); }
+    }
+
+    .gif-container {
+      width: 400px;
+      height: 300px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      margin: 30px auto;
+      position: relative;
+      transition: all 0.5s ease;
+    }
+
+    .gif-container:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    .love-message {
+      font-family: 'Satisfy', cursive;
+      font-size: 48px;
+      color: #FF69B4;
+      margin-top: 30px;
+      opacity: 0;
+      animation: fadeInLove 2s ease-out 1s forwards;
+      text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.3);
+    }
+
+    @keyframes fadeInLove {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .magical-button {
+      background: linear-gradient(45deg, #FF6B6B, #FF1493);
+      color: white;
+      border: 3px solid transparent;
+      padding: 15px 30px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      background-size: 200% auto;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      animation: buttonGradient 3s ease infinite;
+      position: relative;
+    }
+
+    @keyframes buttonGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .magical-button:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+      border: 3px solid #FF69B4;
+    }
+
+    .magical-button:after {
+      content: '❤️';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      opacity: 0;
+      animation: heartGlow 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes heartGlow {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hug-day-container">
+    <div class="hug-day-title">Happy Hug Day!</div>
+    
+    <div class="gif-container">
+      <img src="Final hug.gif" alt="Hug Day GIF" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    
+    <div class="love-message">Love You, Madam Ji!</div>
+    
+    <button class="magical-button" id="celebrateButton">Celebrate Love</button>
+  </div>
+
+  <script>
+    const celebrateButton = document.getElementById('celebrateButton');
+    const kissEmojis = ['😘', '💋', '❤️'];
+
+    function createKissEmoji(startX, startY) {
+      const emoji = document.createElement('div');
+      emoji.classList.add('kiss-emoji');
+      emoji.textContent = kissEmojis[Math.floor(Math.random() * kissEmojis.length)];
+      
+      // Random end position
+      const endX = Math.random() * window.innerWidth;
+      const endY = Math.random() * window.innerHeight;
+      
+      emoji.style.setProperty('--x-end', `${endX - startX}px`);
+      emoji.style.setProperty('--y-end', `${endY - startY}px`);
+      emoji.style.setProperty('--rotation', `${Math.random() * 360}deg`);
+      
+      emoji.style.left = `${startX}px`;
+      emoji.style.top = `${startY}px`;
+      
+      document.body.appendChild(emoji);
+      
+      // Remove emoji after animation
+      emoji.addEventListener('animationend', () => {
+        emoji.remove();
+      });
+    }
+
+    // Function to generate kiss emojis from multiple points
+    function spreadKissEmojis(event) {
+      // Get button coordinates
+      const buttonRect = celebrateButton.getBoundingClientRect();
+      const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+      const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+
+      // Create emojis from button
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => createKissEmoji(buttonCenterX, buttonCenterY), i * 100);
+      }
+
+      // Create emojis from click location
+      const clickX = event.clientX;
+      const clickY = event.clientY;
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => createKissEmoji(clickX, clickY), i * 100);
+      }
+
+      // Create emojis from random screen edges
+      const edgePoints = [
+        { x: 0, y: Math.random() * window.innerHeight },  // Left edge
+        { x: window.innerWidth, y: Math.random() * window.innerHeight },  // Right edge
+        { x: Math.random() * window.innerWidth, y: 0 },  // Top edge
+        { x: Math.random() * window.innerWidth, y: window.innerHeight }   // Bottom edge
+      ];
+
+      edgePoints.forEach(point => {
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => createKissEmoji(point.x, point.y), i * 100);
+        }
+      });
+
+      // Change title color temporarily
+      const title = document.querySelector('.hug-day-title');
+      title.style.color = '#FF69B4';
+      setTimeout(() => {
+        title.style.color = '#FF1493';
+      }, 2000);
+    }
+
+    // Add click event to entire document
+    document.addEventListener('click', spreadKissEmojis);
+  </script>
+
+</body>
+</html>

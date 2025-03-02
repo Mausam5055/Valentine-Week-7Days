@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message by Mausam kar</title>
+     <style>
+      * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background-image: radial-gradient(
+      circle farthest-corner at 50% 50%,
+      hsl(187 20% 88%) 30%,
+      hsl(149 20% 94%) 100%
+  );
+}
+
+.book {
+  position: relative;
+  display: flex;
+  margin: auto;
+  width: 42cqmin; /* Increased width */
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition: translate 1s;
+  translate: calc(min(var(--c), 1) * 50%) 0%;
+  rotate: 1 0 0 30deg;
+}
+
+.page {
+  --thickness: 4;
+  flex: none;
+  display: flex;
+  width: 100%;
+  font-size: 2.2cqmin; /* Slightly increased font size */
+  pointer-events: all;
+  user-select: none;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 1s,
+      rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+  translate: calc(var(--i) * -100%) 0px 0px;
+  transform: translateZ(calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * 0.23cqmin)));
+  rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+}
+
+.front,
+.back {
+  position: relative;
+  flex: none;
+  width: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background-color: #fff;
+  translate: 0px;
+}
+
+.back {
+  translate: -100% 0;
+  rotate: 0 1 0 180deg;
+}
+
+.book {
+  counter-reset: page -1;
+}
+
+.book a {
+  color: inherit;
+}
+
+.page {
+  box-shadow: 0em 0.5em 1em -0.2em #00000020;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  padding: 2em;
+  border: 1px solid #0002;
+}
+
+.front:has(img),
+.back:has(img) {
+  padding: 0;
+}
+
+.front img,
+.back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.front::after,
+.back::after {
+  position: absolute;
+  bottom: 1em;
+  counter-increment: page;
+  content: counter(page) ".";
+  font-size: 0.8em;
+}
+
+.cover::after {
+  content: "";
+}
+
+.front::after {
+  right: 1em;
+}
+
+.front {
+  background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.1em 0.5em 0.5em 0.1em;
+}
+
+.back::after {
+  left: 1em;
+}
+
+.back {
+  background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+  border-radius: 0.5em 0.1em 0.1em 0.5em;
+}
+
+.cover {
+  background: radial-gradient(
+          circle farthest-corner at 80% 20%,
+          hsl(150 80% 20% / 0.3) 0%,
+          hsl(170 60% 10% / 0.1) 100%
+      ),
+      hsl(231, 32%, 29%) url("./cover.jpg") 50% / cover;
+  color: hsl(0, 100%, 30%); /* Dark red text color for cover page */
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1px;
+  color: hsl(0, 100%, 30%); /* Dark red heading color */
+}
+
+p {
+  margin-top: 1px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: hsl(0, 100%, 30%); /* Dark red text color for paragraphs */
+}
+
+.front,
+.back {
+  padding: 1.5em;
+  color: hsl(0, 100%, 30%); /* Dark red text color for front and back pages */
+}
+
+.book {
+  width: 40cqmin; /* Slightly increased width */
+}
+
+.page {
+  font-size: 2cqmin; /* Slightly increased font size */
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.front,
+.back {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.5em;
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+p {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100dvh;
+  perspective: 1000px;
+  font: 1em/1.4 "Poppins", sans-serif;
+  overflow: hidden;
+  color: hsl(180 68% 5%);
+  background: linear-gradient(to right, #ff7eb9, #ff65a3, #ff165d);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Emoji Animation */
+.emoji {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0;
+  animation: floatEmojis 6s ease-in-out infinite;
+}
+
+@keyframes floatEmojis {
+  0% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(20deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 1;
+  }
+}
+
+/* Add random timing for each emoji */
+.emoji:nth-child(1) {
+  animation-delay: 0s;
+  left: 10%;
+}
+.emoji:nth-child(2) {
+  animation-delay: 1s;
+  left: 20%;
+}
+.emoji:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.emoji:nth-child(4) {
+  animation-delay: 3s;
+  left: 40%;
+}
+.emoji:nth-child(5) {
+  animation-delay: 4s;
+  left: 50%;
+}
+.emoji:nth-child(6) {
+  animation-delay: 5s;
+  left: 60%;
+}
+.emoji:nth-child(7) {
+  animation-delay: 6s;
+  left: 70%;
+}
+.emoji:nth-child(8) {
+  animation-delay: 7s;
+  left: 80%;
+}
+.emoji:nth-child(9) {
+  animation-delay: 8s;
+  left: 90%;
+}
+
+
+     </style>
+  </head>
+  <body>
+    <div class="book">
+      <div class="page">
+        <div class="front cover">
+          <h1
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            A Message for You🤍
+          </h1>
+
+          <p
+            style="
+              color: rgb(255, 255, 255);
+              text-shadow: 5px 2px 5px rgb(0, 0, 0);
+            "
+          >
+            2025.<br />Mausam's Special Edition
+          </p>
+        </div>
+        <div class="back">
+          <h2>A Special Beginning ❤️✨</h2>
+
+       <p>Some people come into our lives unexpectedly, yet leave a lasting impact. You are one of those rare souls who make every moment feel a little more special.
+
+        From the very first conversation, something about you stood out—your kindness, your charm, and the effortless way you make the world around you brighter.
+        
+        This isn’t just a collection of words; it’s a small way of showing how much you mean to me. A way to remind you that you are appreciated, admired, and truly special.
+        
+        So, here’s to us—our conversations, our connection, and the beautiful moments yet to come. 💖</p>
+
+          <p>
+            Play Video Before Start Reading... <br />Since we connect in
+            Instagram on december, 2021, and we met for the 1st time that day....
+          </p>
+        </div>
+      </div>
+      <!--2nd page-->
+      <div class="page">
+        <div class="front">
+          <h2>From Strangers to Something Special ❤️✨</h2>
+          <p>
+            It’s incredible to think how, just a few days ago, I didn’t even know you. Meeting you through whatsaap was a moment of fate that I’ll always be grateful for.
+
+At first, I wasn’t sure how we’d connect, what we’d talk about, or what kind of person you’d be. But now, after spending time with you, I’ve realized something truly special—
+
+You’re absolutely amazing. 💖
+
+Your words, your kindness, and the way you make me smile have already made a place in my heart. I never expected to meet someone like you, but now, I can’t imagine not having you in my life.
+
+Maybe it was destiny, or maybe it was just luck—but whatever it was, I’m glad it brought me to you. 💕
+          </p>
+        </div>
+        <div class="back">
+          <img src="./1.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--3rd page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Magic of You ✨💖</h2>
+          <p>
+            There’s a charm about you, a beauty that words can hardly capture. It’s in the sparkle of your eyes, the warmth of your smile, and the effortless way you light up every moment. Every little thing about you feels so perfect, so mesmerizing, that I often wonder—
+
+            Were you crafted as a masterpiece?
+            
+            It’s as if the universe took its time, carefully shaping someone as wonderful as you, just to make the world a little brighter. And trust me, you do. Every single day. 💕
+            
+            Your presence feels like a soft melody, soothing yet unforgettable. The way you carry yourself, the kindness in your heart, and the purity in your soul make you even more special. It’s not just about how beautiful you look—it’s about how beautiful you truly are.
+            
+            Every time I see you, I’m reminded that some things in life are simply magical, and you, without a doubt, are one of them. ✨💖
+          </p>
+        </div>
+        <div class="back">
+          <h2>The Strength Within You 💫✨</h2>
+          <p>
+            It hasn’t even been a month since we last met, yet it feels like years have passed. Every single day without you feels incomplete, like a song missing its melody. I miss you in ways words can’t fully express.
+
+            Whenever I see couples together—walking hand in hand, laughing, sharing little moments—I can’t help but think of you. I picture us in those moments, and I wish more than anything that distance wasn’t keeping us apart. School feels different without you. It’s like the days go on, but a part of me is just waiting for the moment we meet again.
+            
+            I miss your voice, your laughter, and the way you make everything feel right. No matter how far we are, my heart is always with you. I count the days until I can see you again, hold your hand, and make up for all this lost time.
+            
+            Until then, just know that I love you, I miss you, and I’m always thinking of you.
+            
+            Yours forever,Weather
+          </p>
+        </div>
+      </div>
+      <!--4th page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Best Part of My Day🤞💖</h2>
+          <p>
+            Talking to you has quickly become one of the highlights of my day. Every time I see a message from you, I can’t help but smile—it’s like a little spark of happiness. No matter how my day is going, our conversations make everything feel lighter and brighter.
+
+            You have a way of making the simplest moments special.
+            
+            It’s not just about how beautiful you are; it’s the warmth, kindness, and charm in the way you talk. Your words have a magic that makes me feel at ease, and your presence alone brings joy.
+            
+            I never knew a conversation could mean so much, but with you, it does. 💕
+          </p>
+        </div>
+        <div class="back">
+          <img src="./2.jpg" alt="Img 1" />
+        </div>
+      </div>
+      <!--5th page-->
+      <div class="page">
+        <div class="front">
+          <h1>A Wish from the Heart 💫💖</h1>
+          <p>
+            There are moments in life that become etched in the heart forever—ours are those moments. I find myself drifting back to our days in 11th and 12th grade, the evenings we spent walking hand in hand, lost in our little world. I remember waiting down the road for you, my heart racing every time I saw you walking toward me, smiling like you always do. It was in those small moments that I realized just how much you meant to me.
+
+Do you remember that day in the park? The way time just slipped away as we sat there, talking about everything and nothing, soaking in the presence of each other? And the day you wore that beautiful kurta just for me—because you knew how much I loved that look on you? You were breathtaking, and in that moment, I felt like the luckiest person alive.
+
+But the memory that still gives me butterflies is your birthday—the first time you held my hand to take me inside your home. That simple touch sent a rush through me, a feeling I had never experienced before. It was as if, in that single moment, you told me without words that I belonged there, beside you.
+
+Even now, no matter how far we are, these memories keep me warm. They remind me that what we share is rare, something worth cherishing, worth waiting for. I miss you, I miss us, and I can’t wait for the day when we make new memories together again.
+
+Until then, I’ll keep holding on to these moments, just like I’ll always hold on to you.teful for the time we’ve shared.  ✨
+          </p>
+        </div>
+        <div class="back">
+          <h1>Always Here for You 💖✨</h1>
+          <p>
+            You are an inspiration, and I want you to know that I’ll always be here for you, no matter what. If you ever need anything—someone to listen, someone to support you, or just someone to make you smile—I’m just a message away.
+
+            My time is yours whenever you need it.
+            
+            Life can be unpredictable, but I hope you never feel alone. Whether it’s a good day or a tough one, I’ll always be here to cheer you on, to remind you how amazing you are.
+            
+            You deserve nothing but happiness, and if I can be a small part of that, I’d be honored. No matter where life takes us, just know that you’ll always have someone who cares—someone who truly believes in you. 💕
+          </p>
+        </div>
+      </div>
+      <!--6th page-->
+      <div class="page">
+        <div class="front">
+          <h2>The Beauty of You ✨💖</h2>
+          <p>
+            Can we take a moment to appreciate how effortlessly stunning you look in anything you wear? It’s not just the clothes—it’s the confidence, the grace, and the way you carry yourself that make you truly unforgettable. But if I had to choose, I’d say you look absolutely breathtaking in traditional dresses. There’s something about the way they complement your elegance, making you look like a vision straight out of a dream. And your long hair? It’s mesmerizing. The way it flows, the way it frames your face—it’s just perfect.
+
+You have a presence that turns heads and a charm that captivates hearts. There’s something about you that draws people in—maybe it’s your elegance, your warmth, or just the way you light up any room you walk into. Whatever it is, it’s undeniable, and it makes you absolutely perfect in every way.
+
+But beyond your beauty, it’s your kindness and the way you make others feel special that truly set you apart. You radiate positivity, and your energy is something rare and precious.
+
+No matter where you are or what you do, you leave a lasting impression. You are not just beautiful—you are extraordinary. And I feel incredibly lucky to have you in my life.
+          </p>
+        </div>
+        <div class="back">
+          <h2>Absolutely Breathtaking ✨💖</h2>
+          <p>
+            In everything you wear, you are nothing short of breathtaking. It’s not just about your looks—it’s the way you carry yourself with such confidence and grace that makes you truly mesmerizing.
+
+            I’m completely in awe of you.
+            
+            Your presence alone can brighten any space, and your energy is simply magnetic. The way you move, the way you smile, and the way you make others feel at ease—it’s all part of your undeniable charm.
+            
+            You don’t just turn heads; you leave lasting impressions. There’s something so effortlessly captivating about you that makes it impossible to look away.
+            
+            You are not just beautiful—you are a work of art, inside and out. 💕✨
+          </p>
+        </div>
+      </div>
+      <!--7th page-->
+      <div class="page">
+        <div class="front">
+          <h2>Grateful for You🌹❤</h2>
+          <p>
+            I just wanted to take a moment to let you know how much I appreciate you. From the very start, you’ve been someone truly special—someone I admire more than words can express.
+
+            Meeting you, even for a short time, has been a gift.
+            
+            Your kindness, your presence, and the way you make every conversation feel meaningful mean more to me than you know. I’m grateful that our paths crossed, and no matter what the future holds, I’ll always be thankful for you.
+            
+            Some people leave a mark on our hearts without even trying—and you are one of them. 💕
+          </p>
+        </div>
+        <div class="back">
+          <h2>Will You Be Mine Forever? ❤️✨</h2>
+          <p>From the moment we started talking, you’ve been on my mind in the best way possible. Your kindness, your beauty, your energy—everything about you feels so special to me.
+
+            You make my world brighter, my days better, and my heart a little fuller.
+            
+            I don’t know what the future holds, but I do know one thing—I’d love to have you by my side always . So, here’s my question, straight from the heart…
+            
+            Will you be mine forever and be my side always without getting tired of me? 💖💕 </p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="front">
+          <img src="./4.png" alt="Img 1" />
+        </div>
+        <div class="back cover">
+          <h3>Cutest Queen</h3>
+          <p>
+            Content:By Mausam Kar<br /><a
+              href=""
+              target="_blank"
+              rel="nofollow"></a>
+
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="emoji">❤️‍🔥</div>
+<div class="emoji">🫶🏻</div>
+<div class="emoji">❤️</div>
+<div class="emoji">😘</div>
+<div class="emoji">👨‍❤️‍💋‍👨</div>
+<div class="emoji">💓</div>
+<div class="emoji">❣️</div>
+<div class="emoji">💘</div>
+<div class="emoji">💖</div>
+<div class="emoji">💙</div>
+<div class="emoji">💚</div>
+<div class="emoji">🥰</div>
+<div class="emoji">💗</div>
+
+<script>
+  const flipBook = (elBook) => {
+    elBook.style.setProperty("--c", 0); // Set current page
+    elBook.querySelectorAll(".page").forEach((page, idx) => {
+      page.style.setProperty("--i", idx);
+      page.addEventListener("click", (evt) => {
+        if (evt.target.closest("a")) return;
+        const curr = evt.target.closest(".back") ? idx : idx + 1;
+        elBook.style.setProperty("--c", curr);
+      });
+    });
+  };
+  
+  document.querySelectorAll(".book").forEach(flipBook);
+  
+</script>
+ 
+  </body>
+</html>
+

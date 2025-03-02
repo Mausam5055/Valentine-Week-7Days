@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('background.jpg') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+/* Gradient Overlay */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+}
+
+/* Text Styling */
+.text {
+  position: relative;
+  color: white;
+  padding: 20px;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.text h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.text p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* Button Styling */
+.btn {
+  text-decoration: none;
+  background: #ff416c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 5px 15px rgba(255, 65, 108, 0.4);
+}
+
+.btn:hover {
+  background: #ff4b2b;
+  transform: scale(1.1);
+}

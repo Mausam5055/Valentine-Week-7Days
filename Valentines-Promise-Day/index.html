@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pookie 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff4b8b, #ff8c00, #6a11cb, #2575fc);
+            background-size: 300% 300%;
+            animation: gradient 10s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+            color: white;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            background: linear-gradient(90deg, #ff00ff, #ff8c00, #40e0d0, #8a2be2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: glowText 2s infinite alternate;
+        }
+
+        @keyframes glowText {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9); }
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            margin: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff0080, #ff8c00);
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 0, 128, 0.6);
+        }
+
+        #noBtn {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .floating {
+            position: absolute;
+            font-size: 1.8rem;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(-20px); opacity: 1; }
+        }
+
+        .image-placeholder img {
+            width: 250px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-placeholder">
+            <img src="./pookie.gif" alt="Cute GIF">
+        </div>
+        <h1 class="title">O go Sun0 Naa?? Suntai nani??</h1>
+        <button id="yesBtn" class="btn">Bolo na..🥹</button>
+        <button id="noBtn" class="btn">  Priyanka?? 🗿</button>
+    </div>
+
+    <script>
+        const emojis = ['❤️', '✨', '🥹', '💖', '💕', '💝'];
+        
+        function createFloatingElement() {
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            const element = document.createElement('div');
+            element.className = 'floating';
+            element.textContent = emoji;
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(element);
+            
+            setTimeout(() => {
+                element.remove();
+            }, 5000);
+        }
+
+        setInterval(createFloatingElement, 300);
+
+        const noBtn = document.getElementById('noBtn');
+        
+        function moveButton() {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton);
+
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.body.style.transition = 'opacity 1s';
+            document.body.style.opacity = '0';
+            setTimeout(function() {
+                window.location.href = 'surprise.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

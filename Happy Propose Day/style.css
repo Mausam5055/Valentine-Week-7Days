@@ -1,0 +1,37 @@
+body {
+	font-family: Arial, sans-serif;
+}
+
+#login-form {
+	width: 50%;
+	margin: 40px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#code {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+}
+
+#submit-btn {
+	background-color: #4CAF50;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#submit-btn:hover {
+	background-color: #3e8e41;
+}
+
+#result {
+	color: #666;
+	margin-top: 20px;
+}

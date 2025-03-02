@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Kiss Day By Mausam💋</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes fallingSlow {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); }
+            50% { box-shadow: 0 0 50px rgba(255, 105, 180, 1); }
+            100% { box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); }
+        }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+            50% { text-shadow: 0 0 30px #ff69b4, 0 0 40px #ff69b4; }
+            100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+        }
+        @keyframes bubblePop {
+            0% { transform: scale(1); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        body {
+            background: linear-gradient(145deg, #ff9a9e, #fad0c4, #ffd1ff);
+            font-family: 'Pacifico', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .kiss-animation { animation: float 3s infinite ease-in-out; }
+        .wiggle-text { animation: wiggle 2s infinite ease-in-out; }
+        .heartbeat { animation: heartbeat 1.5s infinite ease-in-out; }
+        .falling {
+            animation: fallingSlow 8s linear infinite;
+            position: absolute;
+        }
+        .pulse-glow { animation: pulseGlow 1.5s infinite ease-in-out; }
+        .text-glow { animation: textGlow 3s infinite ease-in-out; }
+
+        .love-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+            border-radius: 50%;
+            font-size: 20px;
+        }
+        .love-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+            animation: pulseGlow 0.8s infinite;
+        }
+
+        h1 {
+            color: #ff69b4;
+            font-size: 6rem;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: textGlow 3s infinite;
+            font-family: 'Bubblegum Sans', sans-serif;
+        }
+
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .falling-heart {
+            font-size: 2rem;
+            position: absolute;
+            animation: bubblePop 3s linear infinite;
+        }
+
+        .content-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            color: white;
+        }
+
+        .message-container {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #ff69b4;
+            backdrop-filter: blur(10px);
+            animation: pulseGlow 2s infinite;
+        }
+
+        .kiss-button {
+            background: linear-gradient(45deg, #ff6ec7, #ff9e2c);
+            color: white;
+            font-size: 2.5rem;
+            border-radius: 50px;
+            padding: 15px 30px;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .kiss-button:hover {
+            background: linear-gradient(45deg, #ff9e2c, #ff6ec7);
+            box-shadow: 0 0 50px rgba(255, 105, 180, 1);
+            transform: scale(1.1);
+        }
+
+        .play-button {
+            background: #ff477e;
+            color: white;
+            font-size: 3rem;
+            border-radius: 50px;
+            padding: 20px 40px;
+            margin-top: 50px;
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        .play-button:hover {
+            background: #ff2a61;
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 1);
+        }
+
+        .kiss-counter {
+            font-size: 3rem;
+            color: #ff69b4;
+        }
+
+        .floating-heart {
+            position: absolute;
+            animation: bubblePop 4s ease-in-out infinite;
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="hearts-container" class="heart-container"></div>
+
+    <div class="content-container">
+        <h1>Happy Kiss Day, Madam Ji! 💋</h1>
+
+        <div class="message-container">
+            <div id="message-display" class="message-box">Total Kisses Sent: <span id="kiss-counter" class="kiss-counter">00001</span></div>
+            <p class="message-box">Baby, the kisses will never stop! 💖</p>
+        </div>
+
+        <button id="kiss-button" class="love-button kiss-button">
+            Tap for a Surprise Kiss! 💋
+        </button>
+
+        <button id="play-button" class="love-button play-button">
+            Let's Play a Game! 💋
+        </button>
+    </div>
+
+    <script>
+        const messages = [
+            "Priyu! You light up my world! 💖",
+            "A kiss just for you, my favorite Madam! 💝",
+            "You're the reason my heart beats! 💕",
+            "Here comes a million kisses for you! 💋",
+            "You're my everything, my sweetest Pookie! 💗",
+            "Every second with you feels magical! 💫",
+            "My love for you is endless, Priyyu baby! 😘",
+            "Kisses for my perfect Madam Ji! 😘",
+            "You're the queen of my heart, always! 👑",
+            "A little surprise, just for you! 🎉"
+        ];
+    
+        let currentMessageIndex = 0; // This variable ensures we show a new message on each click
+    
+        // Function to create falling hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            const symbols = ['💕', '💖', '💗', '💝', '💋', '✨', '🌸', '💘'];
+            heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            heart.className = 'falling-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 8000);
+        }
+    
+        // Function to show a new message on the screen
+        function showMessage() {
+            // Update message index and cycle through messages
+            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+            const messageDisplay = document.getElementById('message-display');
+            messageDisplay.innerHTML = `<div class="message-box">${messages[currentMessageIndex]}</div>`;
+        }
+    
+        // Function to create a kiss effect on click
+        function createKissEffect(e) {
+            const kiss = document.createElement('div');
+            kiss.innerHTML = '💋';
+            kiss.className = 'kiss-animation fixed text-5xl';
+            kiss.style.left = e.clientX + 'px';
+            kiss.style.top = e.clientY + 'px';
+            document.body.appendChild(kiss);
+            setTimeout(() => kiss.remove(), 3000);
+        }
+    
+        // Event listener for "Tap for a Surprise Kiss!" button
+        document.getElementById('kiss-button').addEventListener('click', (e) => {
+            const counter = document.getElementById('kiss-counter');
+            counter.textContent = String(parseInt(counter.textContent) + 1).padStart(5, '0'); // Update the kiss count
+            createKissEffect(e); // Call kiss effect function
+            showMessage(); // Call show message function to display a new message
+        });
+    
+        // Event listener for "Let's Play a Game!" button
+        document.getElementById('play-button').addEventListener('click', () => {
+            document.body.style.transition = 'opacity 1s';
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = 'game.html'; // Redirect to game page
+            }, 1000);
+        });
+    
+        // Initial creation of hearts when page loads
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createHeart, i * 400); // Create hearts with some delay
+        }
+    
+        // Continuously create falling hearts every 800ms
+        setInterval(createHeart, 800);
+    </script>
+    
+</body>
+</html>

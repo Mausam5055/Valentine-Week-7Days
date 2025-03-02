@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pookie's Promise Book 💝</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(45deg, #fe0177, #d6c317, #d0f4de, #5c92ad, #9d13ed);
+            background-size: 300% 300%;
+            animation: bgAnimation 10s ease infinite;
+            font-family: 'Dancing Script', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .promise-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .promise-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffb6c1);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatHeart 5s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 0.8; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-4xl font-bold text-white shadow-lg" style="font-family: 'Pacifico', cursive;">Pookie's Promises 💖</h1>
+    <div class="promise-container" id="promiseContainer">
+        <p class="promise-text" id="promiseText">Click the button to reveal a promise! 💝</p>
+    </div>
+    <button class="btn" onclick="showPromise()">Show Promise 💝</button>
+
+    <script>
+        const promises = [
+            "I promise to always make you smile! 😊",
+            "I promise to be your biggest supporter! 🎉",
+            "I promise to cherish every moment with you! 💕",
+            "I promise to stand by your side, no matter what! 🤝",
+            "I promise to fill your life with love and laughter! 😍",
+            "I promise to love you more every single day! 💖",
+            "I promise to always bring you chocolate! 🍫",
+            "I promise to be your safe place forever! 🏡",
+            "I promise to always listen to you with my heart! ❤️",
+            "I promise to be yours and only yours! 💍"
+        ];
+
+        function showPromise() {
+            const promiseText = document.getElementById('promiseText');
+            const randomPromise = promises[Math.floor(Math.random() * promises.length)];
+            promiseText.textContent = randomPromise;
+            promiseText.style.animation = 'none';
+            setTimeout(() => promiseText.style.animation = 'fadeIn 1s ease-in-out', 10);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.textContent = '❤️';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createFloatingHeart, 800);
+    </script>
+</body>
+</html>

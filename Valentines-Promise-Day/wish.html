@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Promise Day Pookie! 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #6a11cb, #2575fc, #00c6ff, #0ff0b3);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .title {
+            font-size: 3.8rem;
+            color: white;
+            text-shadow: 3px 3px 20px rgba(255, 255, 255, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px white; }
+            to { text-shadow: 0 0 20px white, 0 0 30px #00c6ff; }
+        }
+
+        .pookie-btn {
+            padding: 1.8rem 3.5rem;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff0099, #493240);
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 153, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pookie-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 0, 153, 0.8);
+        }
+
+        .floating {
+            position: absolute;
+            font-size: 2.5rem;
+            pointer-events: none;
+            animation: floatEmoji 6s ease-in-out infinite;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 10px white);
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            50% { transform: translateY(-40px) rotate(180deg) scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Happy Promise Day <br>My Pookie! 💖</h1>
+        <button class="pookie-btn" onclick="smoothTransition('Letter.html')">This is for you, Pookie! 💝</button>
+    </div>
+
+    <script>
+        function smoothTransition(url) {
+            document.body.style.transition = 'opacity 1s';
+            document.body.style.opacity = '0';
+            setTimeout(function() {
+                window.location.href = url;
+            }, 1000);
+        }
+
+        const emojis = ['💖', '✨', '🌸', '💝', '🎀', '💕', '🦋', '🌟', '💌'];
+        function createFloatingElement() {
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            const element = document.createElement('div');
+            element.className = 'floating';
+            element.textContent = emoji;
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.top = Math.random() * 100 + 'vh';
+            element.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(element);
+            setTimeout(() => { element.remove(); }, 6000);
+        }
+
+        setInterval(createFloatingElement, 300);
+    </script>
+</body>
+</html>

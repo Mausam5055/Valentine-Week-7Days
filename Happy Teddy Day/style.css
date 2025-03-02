@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('background.jpg') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient Overlay */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9));
+}
+
+/* Text Styling */
+.text {
+  position: relative;
+  color: #ffffff;
+  padding: 20px;
+  z-index: 2;
+  max-width: 600px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Heading Styles */
+.text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0px 0px 15px rgba(255, 110, 196, 0.7);
+  transition: 0.3s ease-in-out;
+}
+
+.text h1:hover {
+  text-shadow: 0px 0px 25px rgba(255, 110, 196, 1);
+  transform: scale(1.05);
+}
+
+/* Subtitle */
+.text h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffdf6c;
+  text-shadow: 0px 0px 10px rgba(255, 223, 108, 0.8);
+  transition: 0.3s ease-in-out;
+}
+
+.text h2:hover {
+  text-shadow: 0px 0px 20px rgba(255, 223, 108, 1);
+}
+
+/* Paragraph Styling */
+.text p {
+  font-size: 1.3rem;
+  color: #f2f2f2;
+  text-shadow: 0px 0px 8px rgba(242, 242, 242, 0.8);
+}
+
+/* Button Styling */
+.btn {
+  text-decoration: none;
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: inline-block;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0px 5px 20px rgba(255, 65, 108, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+  background: linear-gradient(45deg, #ff4b2b, #ff6ec4);
+  transform: scale(1.1);
+  box-shadow: 0px 8px 25px rgba(255, 65, 108, 0.9);
+}
+
+/* Button Glow Effect */
+.btn::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn:hover::before {
+  opacity: 1;
+  transform: scale(1.2);
+}

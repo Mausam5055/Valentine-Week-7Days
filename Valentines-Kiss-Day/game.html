@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kiss Game By Mausam 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        * {
+            font-family: 'Bubblegum Sans', cursive;
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        @keyframes bgFloat {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-300px) translateX(100px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        .falling {
+            animation: fall 4s linear;
+        }
+        .bg-float {
+            animation: bgFloat 20s linear infinite;
+        }
+        .bg-gradient-animate {
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        .achievement-popup {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+        }
+        .emoji-bg {
+            opacity: 0.1;
+            font-size: min(8rem, 20vw);
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .control-button {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body class="h-screen overflow-hidden">
+    <div id="game-container" class="relative h-screen bg-gradient-animate bg-gradient-to-r from-purple-200 via-pink-300 to-blue-400">
+        <!-- Background Floating Emojis -->
+        <div id="emoji-background" class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="emoji-bg bg-float absolute">💫</div>
+            <div class="emoji-bg bg-float absolute" style="animation-delay: -5s;">🌟</div>
+            <div class="emoji-bg bg-float absolute" style="animation-delay: -10s;">💖</div>
+            <div class="emoji-bg bg-float absolute" style="animation-delay: -15s;">💗</div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 text-2xl md:text-4xl font-bold text-teal-600 z-50 
+                    bg-white/30 backdrop-blur-sm rounded-full px-6 md:px-8 py-2 shadow-lg">
+            Score: <span id="score" class="text-yellow-500">0</span>
+        </div>
+
+        <!-- Achievement Popup -->
+        <div id="achievement" class="hidden achievement-popup absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                                   rounded-3xl p-4 md:p-8 text-center z-50 w-72 md:w-96">
+            <div class="text-3xl md:text-4xl mb-2 md:mb-4">🎉</div>
+            <div id="achievement-text" class="text-xl md:text-2xl font-bold text-teal-600"></div>
+        </div>
+
+        <!-- Message Display -->
+        <div id="message" class="absolute top-20 left-1/2 transform -translate-x-1/2 text-xl md:text-2xl text-yellow-700 
+                                font-bold z-50 bg-white/20 backdrop-blur-sm rounded-full px-4 md:px-6 py-2"></div>
+
+        <!-- Theme Selector -->
+        <div class="absolute top-4 right-4 z-50">
+            <select id="theme-selector" class="px-4 md:px-6 py-2 md:py-3 rounded-full bg-white/40 backdrop-blur-sm text-teal-600 
+                                             text-lg md:text-xl cursor-pointer hover:bg-white/60 transition-all">
+                <option value="romantic">🌸 Pookie Pink</option>
+                <option value="sunset">🌅 Lovey Sunset</option>
+                <option value="dreamy">✨ Dreamy Vibes</option>
+            </select>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="md:hidden fixed bottom-32 left-0 right-0 flex justify-center gap-8 z-50">
+            <button id="left-btn" class="control-button w-16 h-16 rounded-full text-3xl flex items-center justify-center">←</button>
+            <button id="right-btn" class="control-button w-16 h-16 rounded-full text-3xl flex items-center justify-center">→</button>
+        </div>
+
+        <!-- Player Character -->
+        <div id="player" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-16 md:w-24 h-16 md:h-24 z-40">
+            <img src="./Game.gif" alt="Pookie Bear" class="w-full h-full object-contain floating">
+        </div>
+    </div>
+
+    <script>
+         const player = document.getElementById('player');
+        const gameContainer = document.getElementById('game-container');
+        const scoreElement = document.getElementById('score');
+        const messageElement = document.getElementById('message');
+        const achievementElement = document.getElementById('achievement');
+        const achievementText = document.getElementById('achievement-text');
+        const themeSelector = document.getElementById('theme-selector');
+        const leftBtn = document.getElementById('left-btn');
+        const rightBtn = document.getElementById('right-btn');
+        let score = 0;
+        let playerPosition = window.innerWidth / 2;
+        let isMovingLeft = false;
+        let isMovingRight = false;
+        
+        const loveMessages = [
+            "Pookie loves you! 💝",
+            "You're my sweetie pie! 🍯",
+            "Forever my cutie! 🌸",
+            "Pookie's heart goes boom! 💗",
+            "You're pawfect! 🐻",
+            "Cuddle time! 🤗",
+            "My sweet muffin! 🧁"
+        ];
+
+        const achievements = {
+            5: {
+                text: "⭐ Pookie's Rising Star! ⭐\nYou're getting so good at catching love!",
+                emoji: "🌟"
+            },
+            10: {
+                text: "💖 Love Expert! 💖\nPookie is super proud of you!",
+                emoji: "🎉"
+            },
+            15: {
+                text: "🏆 Ultimate Love Champion! 🏆\nYou're the best kiss catcher ever!",
+                emoji: "👑"
+            }
+        };
+
+        const themes = {
+            romantic: "bg-gradient-to-r from-pink-200 via-red-200 to-pink-300",
+            sunset: "bg-gradient-to-r from-orange-200 via-pink-200 to-purple-300",
+            dreamy: "bg-gradient-to-r from-purple-200 via-pink-200 to-blue-300"
+        };
+
+        // Mobile touch controls
+        leftBtn.addEventListener('touchstart', () => isMovingLeft = true);
+        leftBtn.addEventListener('touchend', () => isMovingLeft = false);
+        rightBtn.addEventListener('touchstart', () => isMovingRight = true);
+        rightBtn.addEventListener('touchend', () => isMovingRight = false);
+
+        // Handle mobile movement
+        function updatePlayerPosition() {
+            const speed = 10;
+            if (isMovingLeft && playerPosition > 0) {
+                playerPosition = Math.max(0, playerPosition - speed);
+            }
+            if (isMovingRight && playerPosition < window.innerWidth - player.offsetWidth) {
+                playerPosition = Math.min(window.innerWidth - player.offsetWidth, playerPosition + speed);
+            }
+            player.style.left = `${playerPosition}px`;
+            requestAnimationFrame(updatePlayerPosition);
+        }
+        requestAnimationFrame(updatePlayerPosition);
+
+        // Keyboard controls for desktop
+        document.addEventListener('keydown', (e) => {
+            const speed = 25;
+            if (e.key === 'ArrowLeft' && playerPosition > 0) {
+                playerPosition = Math.max(0, playerPosition - speed);
+            }
+            if (e.key === 'ArrowRight' && playerPosition < window.innerWidth - player.offsetWidth) {
+                playerPosition = Math.min(window.innerWidth - player.offsetWidth, playerPosition + speed);
+            }
+            player.style.left = `${playerPosition}px`;
+        });
+
+        themeSelector.addEventListener('change', (e) => {
+            gameContainer.className = `relative h-screen bg-gradient-animate ${themes[e.target.value]}`;
+        });
+
+        function showAchievement(achievement) {
+            achievementText.innerHTML = achievement.text.replace('\n', '<br>');
+            achievementElement.className = achievementElement.className.replace('hidden', 'block');
+            setTimeout(() => {
+                achievementElement.className += ' hidden';
+            }, 3000);
+        }
+
+        function createKiss() {
+            const kiss = document.createElement('div');
+            kiss.innerHTML = '💋';
+            kiss.style.fontSize = window.innerWidth < 768 ? '2rem' : '3rem';
+            kiss.className = 'falling absolute';
+            kiss.style.left = `${Math.random() * (window.innerWidth - 48)}px`;
+            gameContainer.appendChild(kiss);
+
+            const checkCollision = setInterval(() => {
+                const kissRect = kiss.getBoundingClientRect();
+                const playerRect = player.getBoundingClientRect();
+
+                if (kissRect.bottom >= playerRect.top &&
+                    kissRect.top <= playerRect.bottom &&
+                    kissRect.right >= playerRect.left &&
+                    kissRect.left <= playerRect.right) {
+                    clearInterval(checkCollision);
+                    kiss.remove();
+                    score++;
+                    scoreElement.textContent = score;
+                    showLoveMessage();
+                    createSparkle(kissRect.left, kissRect.top);
+
+                    if (achievements[score]) {
+                        showAchievement(achievements[score]);
+                    }
+                }
+
+                if (kissRect.top > window.innerHeight) {
+                    clearInterval(checkCollision);
+                    kiss.remove();
+                    showMessage("Oopsie! Come back for another kiss! 🥺");
+                }
+            }, 50);
+        }
+
+        function showLoveMessage() {
+            const message = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+            messageElement.textContent = message;
+            messageElement.style.transform = 'translate(-50%, 0) scale(1.2)';
+            setTimeout(() => {
+                messageElement.style.transform = 'translate(-50%, 0) scale(1)';
+                messageElement.textContent = '';
+            }, 2000);
+        }
+
+        function createSparkle(x, y) {
+            const sparkles = ['✨', '💖', '💫', '⭐'];
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+            sparkle.className = 'absolute text-3xl md:text-4xl transform scale-150 transition-all duration-500';
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            gameContainer.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 500);
+        }
+
+        function createFloatingEmoji() {
+            const emojis = ['💝', '💕', '💖', '🌸', '✨', '💗'];
+            const emoji = document.createElement('div');
+            emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.className = 'absolute text-2xl md:text-4xl floating opacity-20';
+            emoji.style.left = `${Math.random() * 100}vw`;
+            emoji.style.top = `${Math.random() * 100}vh`;
+            document.getElementById('emoji-background').appendChild(emoji);
+            
+            setTimeout(() => emoji.remove(), 6000);
+        }
+
+        function showMessage(text) {
+            messageElement.textContent = text;
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 2000);
+        }
+
+        // Adjust game speed based on screen size
+        const gameSpeed = window.innerWidth < 768 ? 2500 : 2000;
+        setInterval(createKiss, gameSpeed);
+        setInterval(createFloatingEmoji, 1000);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            playerPosition = Math.min(playerPosition, window.innerWidth - player.offsetWidth);
+            player.style.left = `${playerPosition}px`;
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Sacramento&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+.next-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 40px;
+  font-size: 22px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+}
+
+.next-button:hover {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.next-button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.teddy-container {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  margin: 20px;
+}
+
+.heart {
+  position: absolute;
+  width: 50px;
+  height: 80px;
+  background: #ff5e6c;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 80px;
+  background: #ff5e6c;
+  border-radius: 50%;
+}
+
+.heart::before {
+  left: -50%;
+  top: 0;
+}
+
+.heart::after {
+  left: 0;
+  top: -50%;
+}
+
+.heart.left {
+  left: 60px;
+  top: 40px;
+}
+
+.heart.right {
+  right: 60px;
+  top: 40px;
+}
+
+.heart:hover {
+  transform: rotate(-45deg) scale(1.1);
+}
+
+.loading-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 48px;
+  color: #ff6f91;
+  margin: 20px;
+  text-shadow: 3px 3px 6px rgba(255, 111, 145, 0.3);
+  animation: cuteWiggle 1.5s ease-in-out infinite;
+  position: relative;
+  border: 2px solid #ff85a1;
+  border-radius: 20px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.loading-subtext {
+  font-family: 'Poppins', cursive;
+  font-size: 24px;
+  color: #ff729f;
+  margin-top: 10px;
+  opacity: 0.8;
+  animation: softBounce 1s ease-in-out infinite alternate;
+  border: 2px dashed #ff85a1;
+  border-radius: 10px;
+  padding: 5px 15px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes cuteWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-5deg) scale(1.05); }
+  75% { transform: rotate(5deg) scale(1.05); }
+}
+
+@keyframes softBounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+.loading-bar {
+  width: 200px;
+  height: 20px;
+  background: rgba(255, 133, 161, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid #ff85a1;
+}
+
+.loading-progress {
+  width: 0%;
+  height: 100%;
+  background: #ff85a1;
+  border-radius: 10px;
+  animation: fill 3s ease-in-out forwards;
+}
+
+@keyframes fill {
+  to {
+    width: 100%;
+  }
+}
+
+.big-heart {
+  font-size: 60px;
+  color: #ff85a1;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin: 20px;
+  user-select: none;
+  text-shadow: 3px 3px 6px rgba(255, 133, 161, 0.3);
+  border: 2px solid #ff6f91;
+  border-radius: 50%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.big-heart:hover {
+  animation: heartbeat 0.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.welcome-message {
+  font-family: 'Pacifico', cursive;
+  color: #ff729f;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: softFadeIn 1.5s ease-out 3s forwards;
+  max-width: 80%;
+  font-size: 40px;
+  line-height: 1.3;
+  text-shadow: 3px 3px 6px rgba(255, 94, 159, 0.2);
+  letter-spacing: 1px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(255, 94, 159, 0.1);
+  border: 2px solid #ff85a1;
+}
+
+@keyframes softFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="floating-hearts"></div>
+  <div class="teddy-container">
+    <div class="teddy left"></div>
+    <div class="teddy right"></div>
+  </div>
+  <div class="loading-text">Loading Hugs...</div>
+  <div class="loading-subtext">Get ready for the cutest moment!</div>
+  <div class="loading-bar">
+    <div class="loading-progress"></div>
+  </div>
+  <div class="big-heart">❤️</div>
+  <div class="welcome-message">
+    Welcome to the warmest place on the internet, where every click brings you closer to my hugs!
+  </div>
+  <button class="next-button">Next</button>
+  <script>
+    // Smooth transition to next page on button click
+    const nextButton = document.querySelector('.next-button');
+    nextButton.addEventListener('click', () => {
+      document.body.style.transition = 'opacity 0.5s';
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = 'first.html';
+      }, 500);
+    });
+  </script>
+ 
+</body>
+</html>
